@@ -1,0 +1,47 @@
+{
+    "name": "andruby/deep-goods",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andruby"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "auth",
+        "tokens",
+        "guard"
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "~5|~6|~7",
+        "illuminate/database": "~5|~6|~7",
+        "illuminate/auth": "~5|~6|~7"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "fzaninotto/faker": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Andruby\\DeepGoods\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        },
+        "classmap": [
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Andruby\\DeepGoods\\GoodsServiceProvider"
+            ]
+        }
+    }
+}
