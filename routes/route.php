@@ -8,6 +8,12 @@ Route::group([
     'namespace' => '\Andruby\DeepGoods\Controllers',
     'middleware' => config('admin.route.middleware')
 ], function (Router $router) {
+    // 产品
+    $router->resource('category', 'CategoryController')->names('category');
+    $router->resource('supplier', 'SuppliersController')->names('supplier');
+    $router->resource('brand', 'BrandController')->names('brand');
+    $router->resource('shop', 'ShopController')->names('shop');
+
     // 产品操作
     $router->resource('goods/class', 'GoodsClassController')->names('goods.class');
     $router->resource('goods/list', 'GoodsController')->names('goods.list');

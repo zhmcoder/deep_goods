@@ -2,7 +2,7 @@
 
 namespace Andruby\DeepGoods\Controllers;
 
-use App\Models\Brand;
+use Andruby\DeepGoods\Models\Brand;
 use Andruby\DeepGoods\Models\Goods;
 use Andruby\DeepGoods\Models\GoodsAttr;
 use Andruby\DeepGoods\Models\GoodsAttrMap;
@@ -211,12 +211,12 @@ class GoodsController extends AdminController
             try {
                 $skus = $form->input("goods_sku")['goods_sku_list'] ?? [];
                 //首先将原有的删除
-                \App\Models\GoodsSku::setSkuStatus($goods, -1);
+                \Andruby\DeepGoods\Models\GoodsSku::setSkuStatus($goods, -1);
 
                 if (collect($skus)->count() <= 0) {
                     //无商品规格
                     //更新或创建
-                    $goods_sku = \App\Models\GoodsSku::query()
+                    $goods_sku = \Andruby\DeepGoods\Models\GoodsSku::query()
                         ->where('goods_id', $goods->id)
                         ->where('attr_key', "0")
                         ->updateOrCreate([], [
@@ -232,14 +232,14 @@ class GoodsController extends AdminController
                             'status' => 1
                         ]);
                     //更新库存
-                    \App\Models\GoodsSku::setSkuStock($goods, $goods_sku, $form->stock_num);
+                    \Andruby\DeepGoods\Models\GoodsSku::setSkuStock($goods, $goods_sku, $form->stock_num);
 
                 } else {
                     collect($skus)->filter(function ($item) {
                         return is_array($item);
                     })->map(function ($sku) use ($goods) {
                         //更新或创建
-                        $goods_sku = \App\Models\GoodsSku::query()
+                        $goods_sku = \Andruby\DeepGoods\Models\GoodsSku::query()
                             ->where('goods_id', $goods->id)
                             ->where('attr_key', $sku['attr_key'])
                             ->updateOrCreate([], [
@@ -255,9 +255,9 @@ class GoodsController extends AdminController
                                 'status' => 1
                             ]);
                         //更新库存
-                        \App\Models\GoodsSku::setSkuStock($goods, $goods_sku, $sku['stock_num']);
+                        \Andruby\DeepGoods\Models\GoodsSku::setSkuStock($goods, $goods_sku, $sku['stock_num']);
 
-                        \App\Models\GoodsSku::setSkuAttrValueMap($goods, $goods_sku, $sku['attrs']);
+                        \Andruby\DeepGoods\Models\GoodsSku::setSkuAttrValueMap($goods, $goods_sku, $sku['attrs']);
 
                         //TODO 根据订单关联，更新销量
                     });
