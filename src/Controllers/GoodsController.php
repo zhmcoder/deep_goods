@@ -10,6 +10,7 @@ use Andruby\DeepGoods\Models\GoodsAttrValue;
 use Andruby\DeepGoods\Models\GoodsAttrValueMap;
 use Andruby\DeepGoods\Models\GoodsClass;
 use Andruby\DeepGoods\Models\GoodsImage;
+use Andruby\DeepGoods\Services\GoodsSku;
 use Illuminate\Http\Request;
 use SmallRuralDog\Admin\Components\Attrs\SelectOption;
 use SmallRuralDog\Admin\Components\Form\Cascader;
@@ -27,7 +28,6 @@ use SmallRuralDog\Admin\Components\Widgets\Divider;
 use SmallRuralDog\Admin\Controllers\AdminController;
 use SmallRuralDog\Admin\Form;
 use SmallRuralDog\Admin\Grid;
-use Andruby\DeepAdmin\Components\GoodsSku;
 
 class GoodsController extends AdminController
 {
