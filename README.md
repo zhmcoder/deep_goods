@@ -8,4 +8,4 @@
 * goods
 
 php artisan vendor:publish --provider="Andruby\DeepGoods\GoodsServiceProvider"
-php artisan db:seed --class=GoodsConfigSeeder
+php artisan db:seed --class=DeepGoodsSeeder
