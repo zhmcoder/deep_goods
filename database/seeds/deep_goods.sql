@@ -18,6 +18,44 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
+
+--
+-- 表的结构 `brands`
+--
+
+CREATE TABLE `brands` (
+                          `id` bigint(20) UNSIGNED NOT NULL,
+                          `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                          `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                          `index_name` char(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '索引首字母',
+                          `source` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '产地国家',
+                          `source_icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '产地图标',
+                          `created_at` timestamp NULL DEFAULT NULL,
+                          `updated_at` timestamp NULL DEFAULT NULL,
+                          `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 转储表的索引
+--
+
+--
+-- 表的索引 `brands`
+--
+ALTER TABLE `brands`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- 在导出的表使用AUTO_INCREMENT
+--
+
+--
+-- 使用表AUTO_INCREMENT `brands`
+--
+ALTER TABLE `brands`
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+COMMIT;
+
 -- --------------------------------------------------------
 
 --
