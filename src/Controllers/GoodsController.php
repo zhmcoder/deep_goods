@@ -115,7 +115,8 @@ class GoodsController extends AdminController
         $form->item("images", "商品图片")->required(true, 'array')
             ->component(Upload::make()->width(130)
                 ->height(130)->multiple(true, "id", "path")->limit(10))
-            ->help("尺寸750x750像素以上，大小2M以下,最多10张图片，第一张为产品主图");
+            ->help("尺寸750x750像素以上，大小2M以下,最多10张图片，第一张为产品主图")
+            ->inputWidth(24);
 
         $form->item('description', "商品卖点")->inputWidth(13)
             ->help("选填，商品卖点简述，例如：此款商品美观大方 性价比较高 不容错过");
