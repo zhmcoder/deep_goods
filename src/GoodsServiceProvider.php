@@ -45,8 +45,8 @@ class GoodsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'deep-admin');
-//        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'deep-admin');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'deep-goods');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'deep-goods');
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
         Admin::script('deep-goods', __DIR__ . '/../dist/js/extend.js');
         Admin::style('deep-goods', __DIR__ . '/../dist/css/extend.css');
@@ -83,7 +83,7 @@ class GoodsServiceProvider extends ServiceProvider
             $this->publishes([__DIR__ . '/../config' => config_path()], 'deep-goods');
             $this->publishes([__DIR__ . '/../resources/lang' => resource_path('lang')], 'deep-goods-lang');
             $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], 'deep-goods-migrations');
-//            $this->publishes([__DIR__ . '/../dist' => public_path('vendor/deep-admin')], 'deep-admin-assets');
+            $this->publishes([__DIR__ . '/../dist' => public_path('vendor/deep-goods')], 'deep-goods-assets');
         }
     }
 
