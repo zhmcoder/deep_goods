@@ -134,7 +134,8 @@ class GoodsController extends AdminController
         $form->item("stock_num", "库存")->vif("one_attr", 1)->component(Input::make(0)->append("个"))->inputWidth(5);
         $form->item("goods_sku", "产品规格")
             ->vif("one_attr", 0)
-            ->component(GoodsSku::make());
+            ->component(GoodsSku::make())
+            ->inputWidth(24);
 
         $form->item("on_shelf", "上架")->component(CSwitch::make());
 

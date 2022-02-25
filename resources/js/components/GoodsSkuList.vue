@@ -37,6 +37,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
+                    :max="99999999"
                     :precision="2"
                     :value="scope.row.price"
                     :controls="false"
@@ -56,6 +57,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
+                    :max="99999999"
                     size="mini"
                     :precision="0"
                     controls-position="right"
@@ -93,6 +95,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
+                    :max="99999999"
                     :precision="2"
                     size="mini"
                     :value="scope.row.cost_price"
@@ -112,6 +115,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
+                    :max="99999999"
                     :precision="2"
                     size="mini"
                     :value="scope.row.line_price"
@@ -131,6 +135,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
+                    :max="99999999"
                     :precision="0"
                     size="mini"
                     :value="scope.row.sold_num"
@@ -179,7 +184,7 @@ export default {
     computed: {
         goods_skus() {
             return this.sku_descartes.map(item => {
-                
+
 
                 const attr_key_ids = item.map(ii => {
                     return ii.id;
