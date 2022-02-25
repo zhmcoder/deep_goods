@@ -41,6 +41,11 @@ class GoodsClassController extends AdminController
         $grid->column('goods_class_key', '唯一标识');
         $grid->column('icon', '图标')->component(Image::make()->size(50, 50)->preview());
 
+        $grid->column('order', '排序');
+        $grid->column('status', '状态')->customValue(function ($row, $value) {
+            return $value == 1 ? "开启" : "关闭";
+        });
+
         $grid->toolbars(function (Grid\Toolbars $toolbars) {
             $toolbars->createButton()->content("添加分类");
         });
