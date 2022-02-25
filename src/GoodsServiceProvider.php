@@ -3,6 +3,7 @@
 namespace Andruby\DeepGoods;
 
 use Illuminate\Support\ServiceProvider;
+use SmallRuralDog\Admin\Admin;
 
 class GoodsServiceProvider extends ServiceProvider
 {
@@ -47,8 +48,8 @@ class GoodsServiceProvider extends ServiceProvider
 //        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'deep-admin');
 //        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'deep-admin');
         $this->loadRoutesFrom(__DIR__ . '/../routes/route.php');
-//        Admin::script('deep-admin', __DIR__.'/../dist/js/extend.js');
-//        Admin::style('deep-admin', __DIR__.'/../dist/css/extend.css');
+        Admin::script('deep-goods', __DIR__ . '/../dist/js/extend.js');
+        Admin::style('deep-goods', __DIR__ . '/../dist/css/extend.css');
 
         if (file_exists($routes = app_path('Api') . '/routes.php')) {
             $this->loadRoutesFrom($routes);

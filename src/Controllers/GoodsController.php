@@ -63,7 +63,7 @@ class GoodsController extends AdminController
         });
 
         $grid->filter(function (Grid\Filter $filter) {
-            $filter->equal('name', '商品名称')->component(Input::make());
+            $filter->like('name', '商品名称')->component(Input::make());
             $filter->equal('brand_id', '所属品牌')->component(Select::make()->options(function () {
                 return Brand::query()->get()->map(function ($item) {
                     return SelectOption::make($item->id, $item->name);
@@ -129,7 +129,7 @@ class GoodsController extends AdminController
 
         $form->item("cost_price", "进货价")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5);
 
-        $form->item("line_price", "划线价")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5);
+        $form->item("line_price", "划线价")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5)->max(11);
 
         $form->item("stock_num", "库存")->vif("one_attr", 1)->component(Input::make(0)->append("个"))->inputWidth(5);
         $form->item("goods_sku", "产品规格")
@@ -140,8 +140,9 @@ class GoodsController extends AdminController
 
         $uploadImages = config('admin.route.api_prefix') . '/upload/images';
         $form->item("content.content", "产品详情")
-            ->component(WangEditor::make()->uploadImgServer($uploadImages)
-                ->uploadFileName('file')->style('min-height:200px;'));
+            ->component(
+                WangEditor::make()->uploadImgServer($uploadImages)->uploadFileName('file')->style('min-height:200px;')
+            )->inputWidth(20);
 
         /*
         $form->addValidatorRule([
