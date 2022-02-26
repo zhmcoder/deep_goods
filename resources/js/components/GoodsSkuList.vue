@@ -37,10 +37,10 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
-                    :max="99999999"
+                    :max="999999999"
                     :precision="2"
                     :value="scope.row.price"
-                    :controls="false"
+                    controls-position="right"
                     size="mini"
                     @change="
                         (currentValue, oldValue) =>
@@ -57,7 +57,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
-                    :max="99999999"
+                    :max="999999999"
                     size="mini"
                     :precision="0"
                     controls-position="right"
@@ -95,11 +95,11 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
-                    :max="99999999"
+                    :max="999999999"
                     :precision="2"
                     size="mini"
                     :value="scope.row.cost_price"
-                    :controls="false"
+                    controls-position="right"
                     @change="
                         (currentValue, oldValue) =>
                             onGoodsSkuValueChange(
@@ -115,11 +115,11 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
-                    :max="99999999"
+                    :max="999999999"
                     :precision="2"
                     size="mini"
                     :value="scope.row.line_price"
-                    :controls="false"
+                    controls-position="right"
                     @change="
                         (currentValue, oldValue) =>
                             onGoodsSkuValueChange(
@@ -135,7 +135,7 @@
             <template slot-scope="scope">
                 <el-input-number
                     :min="0"
-                    :max="99999999"
+                    :max="999999999"
                     :precision="0"
                     size="mini"
                     :value="scope.row.sold_num"

@@ -17,6 +17,7 @@ use SmallRuralDog\Admin\Components\Form\Cascader;
 use SmallRuralDog\Admin\Components\Form\CSwitch;
 use SmallRuralDog\Admin\Components\Form\DatePicker;
 use SmallRuralDog\Admin\Components\Form\Input;
+use SmallRuralDog\Admin\Components\Form\InputNumber;
 use SmallRuralDog\Admin\Components\Form\Radio;
 use SmallRuralDog\Admin\Components\Form\RadioGroup;
 use SmallRuralDog\Admin\Components\Form\Select;
@@ -126,13 +127,14 @@ class GoodsController extends AdminController
             Radio::make(0, "多规格"),
         ])->disabled($isEdit))->topComponent(Divider::make("规格/库存"))->help("保存后无法修改");
 
-        $form->item("price", "价格")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5);
+        $form->item("price", "价格(元)")->vif("one_attr", 1)->component(InputNumber::make()->precision(2));
 
-        $form->item("cost_price", "进货价")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5);
+        $form->item("cost_price", "进货价(元)")->vif("one_attr", 1)->component(InputNumber::make()->precision(2));
 
-        $form->item("line_price", "划线价")->vif("one_attr", 1)->component(Input::make(0)->append("元"))->inputWidth(5)->max(11);
+        $form->item("line_price", "划线价(元)")->vif("one_attr", 1)->component(InputNumber::make()->precision(2));
 
-        $form->item("stock_num", "库存")->vif("one_attr", 1)->component(Input::make(0)->append("个"))->inputWidth(5);
+        $form->item("stock_num", "库存(个)")->vif("one_attr", 1)->component(InputNumber::make());
+
         $form->item("goods_sku", "产品规格")
             ->vif("one_attr", 0)
             ->component(GoodsSku::make())

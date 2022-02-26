@@ -17,6 +17,9 @@ class Goods extends Model
     protected $casts = [
         "goods_class_path" => "json",
         'created_at' => "Y-m-d H:i:s",
+        'price' => 'double',
+        'line_price' => 'double',
+        'cost_price' => 'double',
     ];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];

@@ -22,6 +22,12 @@ class GoodsSku extends Model
 
     protected $with = ['stock'];
 
+    protected $casts = [
+        'price' => 'double',
+        'line_price' => 'double',
+        'cost_price' => 'double',
+    ];
+
     /**
      * @return BelongsTo
      */
