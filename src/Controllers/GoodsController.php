@@ -146,7 +146,7 @@ class GoodsController extends AdminController
         $form->item("content.content", "产品详情")
             ->component(
                 WangEditor::make()->uploadImgServer($uploadImages)->uploadFileName('file')->style('min-height:200px;')
-            )->inputWidth(20);
+            )->inputWidth(24);
 
         /*
         $form->addValidatorRule([
