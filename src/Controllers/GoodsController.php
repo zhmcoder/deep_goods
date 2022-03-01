@@ -171,7 +171,7 @@ class GoodsController extends AdminController
 
             $skus = $form->input("goods_sku")['goods_sku_list'] ?? [];
             $one_attr = $form->input("one_attr");
-            if ($one_attr == 0 && count($skus) <= 0) {
+            if ($one_attr == 2 && count($skus) <= 0) {
                 return \Admin::responseError('至少要添加一个规则');
             }
         });
