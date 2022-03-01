@@ -122,9 +122,9 @@ class GoodsController extends AdminController
         $form->item('description', "商品卖点")->inputWidth(13)
             ->help("选填，商品卖点简述，例如：此款商品美观大方 性价比较高 不容错过");
 
-        $form->item('one_attr', "规格类型")->component(RadioGroup::make(0)->options([
+        $form->item('one_attr', "规格类型")->component(RadioGroup::make(1)->options([
             Radio::make(1, "单规格"),
-            Radio::make(0, "多规格"),
+            Radio::make(2, "多规格"),
         ])->disabled($isEdit))->topComponent(Divider::make("规格/库存"))->help("保存后无法修改");
 
         $form->item("price", "价格(元)")->vif("one_attr", 1)->component(InputNumber::make()->precision(2));
@@ -136,7 +136,7 @@ class GoodsController extends AdminController
         $form->item("stock_num", "库存(个)")->vif("one_attr", 1)->component(InputNumber::make());
 
         $form->item("goods_sku", "产品规格")
-            ->vif("one_attr", 0)
+            ->vif("one_attr", 2)
             ->component(GoodsSku::make())
             ->inputWidth(24);
 
