@@ -36,16 +36,6 @@ class GoodsController extends AdminController
     {
         $grid = new Grid(new Goods());
 
-        $grid->pageBackground()
-            ->defaultSort('id', 'desc')
-            ->stripe(true)
-            ->fit(true)
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
-            ->emptyText("暂无数据");
-
         $grid->column('id', "序号")->width(80)->sortable()->align('center');
         $grid->column('name', "商品名称")->width(150);
         $grid->column('cover.path', '产品图片')->width(100)->component(Image::make()->size(50, 50)->preview())->align("center");
@@ -95,23 +85,22 @@ class GoodsController extends AdminController
     public function form($isEdit = false)
     {
         $form = new Form(new Goods());
-        $form->labelWidth("180px");
+        $form->labelWidth("120px");
         $form->getActions()->buttonCenter();
 
-        $form->item('name', "商品名称")->required()->inputWidth(10)
-            ->topComponent(Divider::make("基本信息"));
+        $form->item('name', "商品名称")->required()->inputWidth(10)->topComponent(Divider::make("基本信息"));
 
         $form->item('brand_id', "商品品牌")->required(true, 'integer')->serveRules("min:1")->component(Select::make(null)->filterable()->options(function () {
             return Brand::query()->orderBy('index_name')->get()->map(function ($item) {
                 return SelectOption::make($item->id, $item->name)->avatar(admin_file_url($item->icon))->desc(strtoupper($item->index_name));
             })->all();
-        }));
+        }))->inputWidth(10);
 
         $form->item("goods_class_path", "产品分类")->required(true, 'array')->component(function () {
             $goods_class = new GoodsClass();
             $allNodes = $goods_class->toTree();
             return Cascader::make()->options($allNodes)->value("id")->label("name")->expandTrigger("hover");
-        });
+        })->inputWidth(10);
 
         $form->item("images", "商品图片")->required(true, 'array')
             ->component(Upload::make()->width(130)
@@ -135,10 +124,7 @@ class GoodsController extends AdminController
 
         $form->item("stock_num", "库存(个)")->vif("one_attr", 1)->component(InputNumber::make());
 
-        $form->item("goods_sku", "产品规格")
-            ->vif("one_attr", 2)
-            ->component(GoodsSku::make())
-            ->inputWidth(24);
+        $form->item("goods_sku", "产品规格")->vif("one_attr", 2)->component(GoodsSku::make())->inputWidth(24);
 
         $form->item("on_shelf", "上架")->component(CSwitch::make());
 

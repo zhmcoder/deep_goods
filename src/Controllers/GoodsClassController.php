@@ -19,23 +19,14 @@ class GoodsClassController extends AdminController
     {
         $grid = new Grid(new GoodsClass());
 
-        $grid->pageBackground()
-            ->defaultSort('id', 'desc')
-            ->quickSearch(['name', 'goods_class_key'])
-            ->stripe(true)
-            ->fit(true)
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
-            ->emptyText("暂无数据");
+        $grid->quickSearch(['name'])->defaultExpandAll()->tree();
 
         $grid->addDialogForm($this->form()->isDialog()->className('p-15'));
         $grid->editDialogForm($this->form(true)->isDialog()->className('p-15'));
 
         $grid->model()->with(['children']);
         $grid->model()->where('parent_id', 0);
-        $grid->tree();
+
         $grid->column('id', '序号')->width(100)->sortable()->align('center');
         $grid->column('name', '名称');
         $grid->column('goods_class_key', '唯一标识');
@@ -57,16 +48,20 @@ class GoodsClassController extends AdminController
     {
         $form = new Form(new GoodsClass());
         $form->getActions()->buttonCenter();
+        $form->labelWidth('120px');
 
-        $form->item('parent_id', '上级菜单')->component(Select::make(0)->options(function () {
-            return GoodsClass::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
-                return SelectOption::make($item->id, $item->name);
-            })->prepend(SelectOption::make(0, '顶级菜单'));
-        }));
+        $form->item('parent_id', '上级菜单')->component(
+            Select::make(0)->options(function () {
+                return GoodsClass::query()->where('parent_id', 0)->orderBy('order')->get()
+                    ->map(function ($item) {
+                        return SelectOption::make($item->id, $item->name);
+                    })->prepend(SelectOption::make(0, '顶级菜单'));
+            })
+        );
         $form->item('name', '名称')->inputWidth(15)->required();
         $form->item('goods_class_key', '唯一标识')->inputWidth(15)->required()->unique(true, 'goods_classes', 'goods_class_key', '唯一标识');
-        $form->item('icon', '图标')->required()->component(Upload::make()->width(80)->height(80));
-        $form->item('order', '排序')->required(true, 'integer')->component(InputNumber::make(1));
+        $form->item('icon', '图标')->required()->component(Upload::make()->width(80)->height(80))->inputWidth(15);
+        $form->item('order', '排序')->component(InputNumber::make(1));
         $form->item('status', '状态')->component(CSwitch::make());
 
         return $form;

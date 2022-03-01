@@ -15,6 +15,12 @@ class GoodsClass extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(get_class($this), 'parent_id')->orderBy('order');
+        $where = [];
+        $name = request('__search__');
+        if (!empty($name)) {
+            $where[] = ['name', 'like', '%' . $name . '%'];
+        }
+
+        return $this->hasMany(get_class($this), 'parent_id')->where($where)->orderBy('order');
     }
 }

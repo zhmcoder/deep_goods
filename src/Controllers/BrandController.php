@@ -18,16 +18,7 @@ class BrandController extends AdminController
         $grid->addDialogForm($this->form()->isDialog()->className('p-15'));
         $grid->editDialogForm($this->form(true)->isDialog()->className('p-15'));
 
-        $grid->pageBackground()
-            ->defaultSort('id', 'desc')
-            ->quickSearch(['name', 'index_name'])
-            ->stripe(true)
-            ->fit(true)
-            ->defaultSort('id', 'desc')
-            ->perPage(env('PER_PAGE', 15))
-            ->size(env('TABLE_SIZE', ''))
-            ->border(env('TABLE_BORDER', false))
-            ->emptyText("暂无数据");
+        $grid->quickSearch(['name']);
 
         $grid->column("id", "序号")->width(80)->align('center')->sortable();
         $grid->column("name", "品牌名称")->width(200);
@@ -47,12 +38,13 @@ class BrandController extends AdminController
     {
         $form = new Form(new Brand());
         $form->getActions()->buttonCenter();
+        $form->labelWidth('150px');
 
-        $form->item("name", "品牌名称")->required()->inputWidth(10);
-        $form->item("index_name", "索引首字母")->required()->inputWidth(10);
-        $form->item("icon", "品牌logo")->required()->component(Upload::make()->width(80)->height(80));
-        $form->item("source", "产地国家")->required()->inputWidth(10);
-        $form->item("source_icon", "产地图标")->required()->component(Upload::make()->width(80)->height(80));
+        $form->item("name", "品牌名称")->required()->inputWidth(15);
+        $form->item("index_name", "索引首字母")->required()->inputWidth(15);
+        $form->item("icon", "品牌logo")->required()->component(Upload::make()->width(80)->height(80))->inputWidth(15);
+        $form->item("source", "产地国家")->required()->inputWidth(15);
+        $form->item("source_icon", "产地图标")->required()->component(Upload::make()->width(80)->height(80))->inputWidth(15);
 
         return $form;
     }
