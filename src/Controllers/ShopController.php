@@ -3,7 +3,7 @@
 namespace Andruby\DeepGoods\Controllers;
 
 use Andruby\DeepAdmin\Controllers\ContentController;
-use SmallRuralDog\Admin\Grid;
+use Andruby\DeepAdmin\Grid;
 
 class ShopController extends ContentController
 {

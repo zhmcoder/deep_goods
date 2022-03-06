@@ -3,10 +3,10 @@
 namespace Andruby\DeepGoods\Controllers;
 
 use Andruby\DeepGoods\Models\Supplier;
-use SmallRuralDog\Admin\Components\Form\Input;
-use SmallRuralDog\Admin\Controllers\AdminController;
-use SmallRuralDog\Admin\Form;
-use SmallRuralDog\Admin\Grid;
+use Andruby\DeepAdmin\Components\Form\Input;
+use Andruby\DeepAdmin\Controllers\AdminController;
+use Andruby\DeepAdmin\Form;
+use Andruby\DeepAdmin\Grid;
 
 class SuppliersController extends AdminController
 {

@@ -3,11 +3,11 @@
 namespace Andruby\DeepGoods\Controllers;
 
 use Andruby\DeepGoods\Models\Brand;
-use SmallRuralDog\Admin\Components\Form\Upload;
-use SmallRuralDog\Admin\Components\Grid\Image;
-use SmallRuralDog\Admin\Controllers\AdminController;
-use SmallRuralDog\Admin\Form;
-use SmallRuralDog\Admin\Grid;
+use Andruby\DeepAdmin\Components\Form\Upload;
+use Andruby\DeepAdmin\Components\Grid\Image;
+use Andruby\DeepAdmin\Controllers\AdminController;
+use Andruby\DeepAdmin\Form;
+use Andruby\DeepAdmin\Grid;
 
 class BrandController extends AdminController
 {

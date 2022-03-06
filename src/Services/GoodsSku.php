@@ -3,9 +3,9 @@
 namespace Andruby\DeepGoods\Services;
 
 use Andruby\DeepGoods\Models\GoodsAttr;
-use SmallRuralDog\Admin\Components\Component;
-use SmallRuralDog\Admin\Components\Form\Upload;
-use SmallRuralDog\Admin\Components\Grid\Image;
+use Andruby\DeepAdmin\Components\Component;
+use Andruby\DeepAdmin\Components\Form\Upload;
+use Andruby\DeepAdmin\Components\Grid\Image;
 
 class GoodsSku extends Component
 {

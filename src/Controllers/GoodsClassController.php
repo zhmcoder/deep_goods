@@ -3,15 +3,15 @@
 namespace Andruby\DeepGoods\Controllers;
 
 use Andruby\DeepGoods\Models\GoodsClass;
-use SmallRuralDog\Admin\Components\Attrs\SelectOption;
-use SmallRuralDog\Admin\Components\Form\CSwitch;
-use SmallRuralDog\Admin\Components\Form\InputNumber;
-use SmallRuralDog\Admin\Components\Form\Select;
-use SmallRuralDog\Admin\Components\Form\Upload;
-use SmallRuralDog\Admin\Components\Grid\Image;
-use SmallRuralDog\Admin\Controllers\AdminController;
-use SmallRuralDog\Admin\Form;
-use SmallRuralDog\Admin\Grid;
+use Andruby\DeepAdmin\Components\Attrs\SelectOption;
+use Andruby\DeepAdmin\Components\Form\CSwitch;
+use Andruby\DeepAdmin\Components\Form\InputNumber;
+use Andruby\DeepAdmin\Components\Form\Select;
+use Andruby\DeepAdmin\Components\Form\Upload;
+use Andruby\DeepAdmin\Components\Grid\Image;
+use Andruby\DeepAdmin\Controllers\AdminController;
+use Andruby\DeepAdmin\Form;
+use Andruby\DeepAdmin\Grid;
 
 class GoodsClassController extends AdminController
 {

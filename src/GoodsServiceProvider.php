@@ -3,7 +3,7 @@
 namespace Andruby\DeepGoods;
 
 use Illuminate\Support\ServiceProvider;
-use SmallRuralDog\Admin\Admin;
+use Andruby\DeepAdmin\Admin;
 
 class GoodsServiceProvider extends ServiceProvider
 {
