@@ -89,7 +89,7 @@ class GoodsServiceProvider extends ServiceProvider
 
     protected function loadAdminAuthConfig()
     {
-//        config(Arr::dot(config('admin.auth', []), 'auth.'));
+//        config(Arr::dot(config('deep_admin.auth', []), 'auth.'));
     }
 
 
