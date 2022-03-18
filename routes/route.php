@@ -6,7 +6,7 @@ Route::group([
     'domain' => config('deep_admin.route.domain'),
     'prefix' => config('deep_admin.route.api_prefix'),
     'namespace' => '\Andruby\DeepGoods\Controllers',
-    'middleware' => config('admin.route.middleware')
+    'middleware' => config('deep_admin.route.middleware')
 ], function (Router $router) {
     // 产品
     $router->resource('category', 'CategoryController')->names('category');
