@@ -13,6 +13,10 @@ class GoodsClass extends Model
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
+    protected $casts = [
+        'show_app' => 'array',
+    ];
+
     public function children(): HasMany
     {
         $where = [];

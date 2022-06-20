@@ -10,4 +10,8 @@ class Brand extends Model
     use SoftDeletes;
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    protected $casts = [
+        'show_app' => 'array',
+    ];
 }

@@ -11,6 +11,8 @@ use Andruby\DeepGoods\Models\GoodsAttrValueMap;
 use Andruby\DeepGoods\Models\GoodsClass;
 use Andruby\DeepGoods\Models\GoodsImage;
 use Andruby\DeepGoods\Services\GoodsSku;
+use Andruby\HomeConfig\Models\AppInfo;
+use App\Admin\Services\GridCacheService;
 use Illuminate\Http\Request;
 use Andruby\DeepAdmin\Components\Attrs\SelectOption;
 use Andruby\DeepAdmin\Components\Form\Cascader;
@@ -48,6 +50,14 @@ class GoodsController extends AdminController
         $grid->column('created_at', '发布时间')->customValue(function ($row, $value) {
             return $value;
         });
+
+        $grid->column('show_app', '展示app')->customValue(function ($row, $value) {
+            $appInfo = [];
+            foreach ($value as $appId) {
+                $appInfo[] = GridCacheService::instance()->app_name($appId);
+            }
+            return $appInfo;
+        })->component(Tag::make())->width(200);
 
         $grid->actions(function (Grid\Actions $actions) {
 
@@ -133,6 +143,14 @@ class GoodsController extends AdminController
             ->component(
                 WangEditor::make()->uploadImgServer($uploadImages)->uploadFileName('file')->style('min-height:200px;')
             )->inputWidth(24);
+
+        $form->item('show_app', '展示app')->component(
+            Select::make()->options(function () {
+                return AppInfo::query()->get()->map(function ($item) {
+                    return SelectOption::make($item->app_id, $item->name);
+                })->all();
+            })->clearable()->multiple()
+        )->inputWidth(24);
 
         /*
         $form->addValidatorRule([

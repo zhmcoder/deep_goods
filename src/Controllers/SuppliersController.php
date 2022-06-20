@@ -2,11 +2,16 @@
 
 namespace Andruby\DeepGoods\Controllers;
 
+use Andruby\DeepAdmin\Components\Attrs\SelectOption;
+use Andruby\DeepAdmin\Components\Form\Select;
+use Andruby\DeepAdmin\Components\Grid\Tag;
 use Andruby\DeepGoods\Models\Supplier;
 use Andruby\DeepAdmin\Components\Form\Input;
 use Andruby\DeepAdmin\Controllers\AdminController;
 use Andruby\DeepAdmin\Form;
 use Andruby\DeepAdmin\Grid;
+use Andruby\HomeConfig\Models\AppInfo;
+use App\Admin\Services\GridCacheService;
 
 class SuppliersController extends AdminController
 {
@@ -23,6 +28,14 @@ class SuppliersController extends AdminController
         $grid->column('email', '邮箱');
         $grid->column('principal', '负责人');
         $grid->column('address', '地址');
+
+        $grid->column('show_app', '展示app')->customValue(function ($row, $value) {
+            $appInfo = [];
+            foreach ($value as $appId) {
+                $appInfo[] = GridCacheService::instance()->app_name($appId);
+            }
+            return $appInfo;
+        })->component(Tag::make())->width(200);
 
         $grid->toolbars(function (Grid\Toolbars $toolbars) {
             $toolbars->createButton()->content("添加供货商");
@@ -47,6 +60,14 @@ class SuppliersController extends AdminController
         $form->item('principal', "负责人")->inputWidth(15);
         $form->item('address', "地址")->inputWidth(15)->required();
         $form->item('remark', "备注")->inputWidth(15)->component(Input::make()->textarea());
+
+        $form->item('show_app', '展示app')->component(
+            Select::make()->options(function () {
+                return AppInfo::query()->get()->map(function ($item) {
+                    return SelectOption::make($item->app_id, $item->name);
+                })->all();
+            })->clearable()->multiple()
+        )->inputWidth(24);
 
         return $form;
     }

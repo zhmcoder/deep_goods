@@ -20,6 +20,7 @@ class Goods extends Model
         'price' => 'double',
         'line_price' => 'double',
         'cost_price' => 'double',
+        'show_app' => 'array',
     ];
 
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
