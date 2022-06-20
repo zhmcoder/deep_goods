@@ -42,6 +42,14 @@ class ShopController extends ContentController
             return $appInfo;
         })->component(Tag::make())->width(200);
 
+        $grid->filter(function (Grid\Filter $filter) {
+            $filter->like('show_app', '展示app')->component(
+                Select::make()->options(function () {
+                    return AppInfoService::instance()->app_info();
+                })->clearable()->filterable()
+            );
+        });
+
         return $grid;
     }
 

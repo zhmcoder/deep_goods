@@ -91,6 +91,13 @@ class GoodsController extends AdminController
                 ])
             );
             */
+
+            $filter->like('show_app', '展示app')->component(
+                Select::make()->options(function () {
+                    return AppInfoService::instance()->app_info();
+                })->clearable()->filterable()
+            );
+
         });
 
         $grid->quickFilter()->filterKey('on_shelf')->defaultValue(null)
