@@ -13,16 +13,26 @@ use Andruby\DeepAdmin\Components\Grid\Image;
 use Andruby\DeepAdmin\Controllers\AdminController;
 use Andruby\DeepAdmin\Form;
 use Andruby\DeepAdmin\Grid;
-use Andruby\HomeConfig\Models\AppInfo;
+use Andruby\HomeConfig\Services\AppInfoService;
 use App\Admin\Services\GridCacheService;
+use App\Models\AdminRoleUser;
 
 class GoodsClassController extends AdminController
 {
     public function grid()
     {
         $grid = new Grid(new GoodsClass());
-
         $grid->quickSearch(['name'])->defaultExpandAll()->tree();
+
+        $grid->model()->where(function ($query) {
+            $user = \Admin::user();
+            if ($user['role_id'] > AdminRoleUser::ROLE_ADMINISTRATOR) {
+                $showApp = json_decode($user['show_app'], true);
+                foreach ($showApp as $appId) {
+                    $query->orWhere('show_app', 'like', '%"' . $appId . '"%');
+                }
+            }
+        });
 
         $grid->addDialogForm($this->form()->isDialog()->className('p-15'));
         $grid->editDialogForm($this->form(true)->isDialog()->className('p-15'));
@@ -77,10 +87,8 @@ class GoodsClassController extends AdminController
 
         $form->item('show_app', '展示app')->component(
             Select::make()->options(function () {
-                return AppInfo::query()->get()->map(function ($item) {
-                    return SelectOption::make($item->app_id, $item->name);
-                })->all();
-            })->clearable()->multiple()
+                return AppInfoService::instance()->app_info();
+            })->clearable()->filterable()->multiple()
         )->inputWidth(24);
 
         return $form;

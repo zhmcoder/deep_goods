@@ -2,7 +2,6 @@
 
 namespace Andruby\DeepGoods\Controllers;
 
-use Andruby\DeepAdmin\Components\Attrs\SelectOption;
 use Andruby\DeepAdmin\Components\Form\Select;
 use Andruby\DeepAdmin\Components\Grid\Tag;
 use Andruby\DeepGoods\Models\Supplier;
@@ -10,16 +9,26 @@ use Andruby\DeepAdmin\Components\Form\Input;
 use Andruby\DeepAdmin\Controllers\AdminController;
 use Andruby\DeepAdmin\Form;
 use Andruby\DeepAdmin\Grid;
-use Andruby\HomeConfig\Models\AppInfo;
+use Andruby\HomeConfig\Services\AppInfoService;
 use App\Admin\Services\GridCacheService;
+use App\Models\AdminRoleUser;
 
 class SuppliersController extends AdminController
 {
     public function grid()
     {
         $grid = new Grid(new Supplier());
-
         $grid->quickSearch(['name', 'phone', 'qq', 'email', 'principal']);
+
+        $grid->model()->where(function ($query) {
+            $user = \Admin::user();
+            if ($user['role_id'] > AdminRoleUser::ROLE_ADMINISTRATOR) {
+                $showApp = json_decode($user['show_app'], true);
+                foreach ($showApp as $appId) {
+                    $query->orWhere('show_app', 'like', '%"' . $appId . '"%');
+                }
+            }
+        });
 
         $grid->column('id', '序号')->sortable()->align('center');
         $grid->column('name', '供货商');
@@ -63,10 +72,8 @@ class SuppliersController extends AdminController
 
         $form->item('show_app', '展示app')->component(
             Select::make()->options(function () {
-                return AppInfo::query()->get()->map(function ($item) {
-                    return SelectOption::make($item->app_id, $item->name);
-                })->all();
-            })->clearable()->multiple()
+                return AppInfoService::instance()->app_info();
+            })->clearable()->filterable()->multiple()
         )->inputWidth(24);
 
         return $form;

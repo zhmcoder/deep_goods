@@ -11,8 +11,9 @@ use Andruby\DeepGoods\Models\GoodsAttrValueMap;
 use Andruby\DeepGoods\Models\GoodsClass;
 use Andruby\DeepGoods\Models\GoodsImage;
 use Andruby\DeepGoods\Services\GoodsSku;
-use Andruby\HomeConfig\Models\AppInfo;
+use Andruby\HomeConfig\Services\AppInfoService;
 use App\Admin\Services\GridCacheService;
+use App\Models\AdminRoleUser;
 use Illuminate\Http\Request;
 use Andruby\DeepAdmin\Components\Attrs\SelectOption;
 use Andruby\DeepAdmin\Components\Form\Cascader;
@@ -37,6 +38,16 @@ class GoodsController extends AdminController
     public function grid()
     {
         $grid = new Grid(new Goods());
+
+        $grid->model()->where(function ($query) {
+            $user = \Admin::user();
+            if ($user['role_id'] > AdminRoleUser::ROLE_ADMINISTRATOR) {
+                $showApp = json_decode($user['show_app'], true);
+                foreach ($showApp as $appId) {
+                    $query->orWhere('show_app', 'like', '%"' . $appId . '"%');
+                }
+            }
+        });
 
         $grid->column('id', "序号")->width(80)->sortable()->align('center');
         $grid->column('name', "商品名称")->width(150);
@@ -146,10 +157,8 @@ class GoodsController extends AdminController
 
         $form->item('show_app', '展示app')->component(
             Select::make()->options(function () {
-                return AppInfo::query()->get()->map(function ($item) {
-                    return SelectOption::make($item->app_id, $item->name);
-                })->all();
-            })->clearable()->multiple()
+                return AppInfoService::instance()->app_info();
+            })->clearable()->filterable()->multiple()
         )->inputWidth(24);
 
         /*
