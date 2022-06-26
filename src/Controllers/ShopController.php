@@ -13,6 +13,11 @@ use App\Models\AdminRoleUser;
 
 class ShopController extends ContentController
 {
+    protected function getTableName()
+    {
+        return 'shops';
+    }
+
     function grid_list(Grid $grid)
     {
         $grid->quickSearch(['name']);

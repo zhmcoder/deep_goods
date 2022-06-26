@@ -82,15 +82,6 @@ class GoodsController extends AdminController
                 })->all();
             }));
             $filter->date('created_at', '发布日期')->component(DatePicker::make()->style('width:150px;margin-left:5px;'));
-            /*
-            $filter->between('created_at', '日期范围')->component(DatePicker::make()->type("daterange"));
-            $filter->equal('on_shelf', '上下架')->component(
-                RadioGroup::make(null, [
-                    Radio::make(1, '上架'),
-                    Radio::make(0, '下架'),
-                ])
-            );
-            */
 
             $filter->like('show_app', '展示app')->component(
                 Select::make()->options(function () {
