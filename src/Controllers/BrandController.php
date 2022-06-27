@@ -36,11 +36,11 @@ class BrandController extends ContentController
         $grid->quickSearch(['name']);
 
         $grid->column("id", "序号")->width(80)->align('center')->sortable();
-        $grid->column("name", "品牌名称")->width(100);
-        $grid->column("index_name", "索引首字母")->width(100)->align("center");
-        $grid->column("icon", "品牌logo")->component(Image::make()->size(50, 50)->preview())->width(100)->align("center");
-        $grid->column("source", "产地国家")->width(100)->align("center");
-        $grid->column("source_icon", "产地图标")->component(Image::make()->size(50, 50)->preview())->width(100)->align("center");
+        $grid->column("name", "品牌名称");
+        $grid->column("index_name", "索引首字母")->align("center");
+        $grid->column("icon", "品牌logo")->component(Image::make()->size(50, 50)->preview())->align("center");
+        $grid->column("source", "产地国家")->align("center");
+        $grid->column("source_icon", "产地图标")->component(Image::make()->size(50, 50)->preview())->align("center");
 
         $grid->column('show_app', '展示app')->customValue(function ($row, $value) {
             $appInfo = [];

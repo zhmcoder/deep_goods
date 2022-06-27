@@ -49,18 +49,21 @@ class GoodsController extends AdminController
             }
         });
 
+        $grid->addDialogForm($this->form()->isDialog()->className('p-15'), '1000px')->isDrawerForm();
+        $grid->editDialogForm($this->form(true)->isDialog()->className('p-15'), '1000px')->isDrawerForm();
+
         $grid->column('id', "序号")->width(80)->sortable()->align('center');
         $grid->column('name', "商品名称")->width(150);
-        $grid->column('cover.path', '产品图片')->width(100)->component(Image::make()->size(50, 50)->preview())->align("center");
-        $grid->column('goodsClass.name', "产品分类")->width(150);
-        $grid->column('brand.name', "品牌")->width(150);
-        $grid->column('on_shelf', "是否上架")->width(100)->align("center")->customValue(function ($row, $value) {
+        $grid->column('cover.path', '产品图片')->component(Image::make()->size(50, 50)->preview())->align("center");
+        $grid->column('goodsClass.name', "产品分类");
+        $grid->column('brand.name', "品牌");
+        $grid->column('on_shelf', "是否上架")->align("center")->customValue(function ($row, $value) {
             return $value == 1 ? "上架" : "下架";
         })->component(Tag::make()->type(["上架" => "success", "下架" => "danger"]));
 
         $grid->column('created_at', '发布时间')->customValue(function ($row, $value) {
             return $value;
-        });
+        })->width(150);
 
         $grid->column('show_app', '展示app')->customValue(function ($row, $value) {
             $appInfo = [];
@@ -88,7 +91,6 @@ class GoodsController extends AdminController
                     return AppInfoService::instance()->app_info();
                 })->clearable()->filterable()
             );
-
         });
 
         $grid->quickFilter()->filterKey('on_shelf')->defaultValue(null)
@@ -96,7 +98,7 @@ class GoodsController extends AdminController
 
         $grid->toolbars(function (Grid\Toolbars $toolbars) {
             $toolbars->createButton()->content("添加产品");
-        });
+        })->actionFixed('right');
 
         return $grid;
     }
