@@ -2,6 +2,7 @@
 
 namespace Andruby\DeepGoods\Controllers;
 
+use Andruby\DeepAdmin\Controllers\ContentController;
 use Andruby\DeepGoods\Models\Brand;
 use Andruby\DeepGoods\Models\Goods;
 use Andruby\DeepGoods\Models\GoodsAttr;
@@ -29,11 +30,10 @@ use Andruby\DeepAdmin\Components\Form\WangEditor;
 use Andruby\DeepAdmin\Components\Grid\Image;
 use Andruby\DeepAdmin\Components\Grid\Tag;
 use Andruby\DeepAdmin\Components\Widgets\Divider;
-use Andruby\DeepAdmin\Controllers\AdminController;
 use Andruby\DeepAdmin\Form;
 use Andruby\DeepAdmin\Grid;
 
-class GoodsController extends AdminController
+class GoodsController extends ContentController
 {
     public function grid()
     {
@@ -171,7 +171,7 @@ class GoodsController extends AdminController
         ]);
         */
 
-        $form->saving(function (Form $form) {
+        $form->saving(function (Form $form) use ($isEdit) {
             $form->goods_class_id = collect($form->input("goods_class_path"))->last();
             $form->user_id = \Admin::user()->id;
             $form->shop_id = 0;
@@ -187,6 +187,8 @@ class GoodsController extends AdminController
             if ($one_attr == 2 && count($skus) <= 0) {
                 return \Admin::responseError('至少要添加一个规则');
             }
+
+            return $this->saving_event($form, $isEdit);
         });
 
         $form->editQuery(function (Form $form, $editData) {
