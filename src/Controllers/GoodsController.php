@@ -90,7 +90,7 @@ class GoodsController extends ContentController
                 ->handler(Grid\Actions\ActionButton::HANDLER_REQUEST)
                 ->uri('/admin-api/goods/on_shelf/{id}?on_shelf=' . $shelf)
             );
-        });
+        })->actionWidth('150px')->actionFixed('right');
 
         $grid->filter(function (Grid\Filter $filter) {
             $filter->like('name', '商品名称')->component(Input::make());
