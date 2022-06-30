@@ -74,7 +74,22 @@ class GoodsController extends ContentController
         })->component(Tag::make())->width(200);
 
         $grid->actions(function (Grid\Actions $actions) {
+            $rowInfo = $actions->getRow();
 
+            if ($rowInfo['on_shelf'] == Goods::OFF_SHELF) {
+                $name = '上架';
+                $shelf = Goods::ON_SHELF;
+            } else {
+                $name = '下架';
+                $shelf = Goods::OFF_SHELF;
+            }
+            $actions->add(Grid\Actions\ActionButton::make($name)->order(0)
+                ->beforeEmit("tableSetLoading", true)
+                ->successEmit("tableReload")
+                ->afterEmit("tableSetLoading", false)
+                ->handler(Grid\Actions\ActionButton::HANDLER_REQUEST)
+                ->uri('/admin-api/goods/on_shelf/{id}?on_shelf=' . $shelf)
+            );
         });
 
         $grid->filter(function (Grid\Filter $filter) {
@@ -339,4 +354,14 @@ class GoodsController extends ContentController
         }
     }
 
+    public function on_shelf($id)
+    {
+        $on_shelf = request('on_shelf');
+
+        $data = ['on_shelf' => $on_shelf];
+        Goods::query()->where(['id' => $id])->update($data);
+
+        $data['action']['emit'] = 'tableReload';
+        return \Admin::response($data, '操作成功');
+    }
 }

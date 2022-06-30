@@ -19,5 +19,6 @@ Route::group([
     $router->resource('goods/list', 'GoodsController')->names('goods.list');
     $router->post("goods/addGoodsAttr", "GoodsController@addGoodsAttr")->name("addGoodsAttr");
     $router->post("goods/addGoodsAttrValue", "GoodsController@addGoodsAttrValue")->name("addGoodsAttrValue");
+    $router->get('goods/on_shelf/{id}', 'GoodsController@on_shelf')->name('goods.on_shelf');
 });
 

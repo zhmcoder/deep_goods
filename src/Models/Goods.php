@@ -27,6 +27,15 @@ class Goods extends Model
 
     protected $with = ['images'];
 
+    const OFF_SHELF = 0; // 下架
+    const ON_SHELF = 1; // 立即上架
+    const TIME_SHELF = 2; // 自动上架
+    const SHELF = [
+        self::OFF_SHELF => '下架',
+        self::ON_SHELF => '立即上架',
+        self::TIME_SHELF => '自动上架',
+    ];
+
     /**
      * 产品销售属性列表
      * @return HasMany
