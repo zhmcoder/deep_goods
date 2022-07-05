@@ -164,6 +164,14 @@ class GoodsController extends ContentController
 
         $form->item("on_shelf", "上架")->component(CSwitch::make());
 
+        $options = [
+            SelectOption::make(1, '佣金比例'),
+            SelectOption::make(2, '佣金金额'),
+        ];
+        $form->item('commission_type', '佣金类型')->component(Select::make(1)->options($options));
+        $form->item("commission_ratio", "比例(%)")->vif("commission_type", 1)->component(InputNumber::make()->precision(2)->max(100));
+        $form->item("commission_price", "金额(元)")->vif("commission_type", 2)->component(InputNumber::make()->precision(2));
+
         $uploadImages = config('deep_admin.route.api_prefix') . '/upload/images';
         $form->item("content.content", "产品详情")
             ->component(
