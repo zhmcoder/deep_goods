@@ -32,10 +32,8 @@ class GoodsSku extends Component
         $this->addGoodsAttrUrl = route("addGoodsAttr");
         $this->addGoodsAttrValueUrl = route("addGoodsAttrValue");
 
-        $this->uploadComponent = Upload::make()->width(130)->height(130);
+        $this->uploadComponent = Upload::make()->width(130)->height(130)->uniqueName();
         $this->imageComponent = Image::make()->size(30, 30)->className("mr-10");
-
-
     }
 
     public static function make($value = [])
