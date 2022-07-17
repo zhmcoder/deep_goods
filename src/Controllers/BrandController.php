@@ -85,6 +85,14 @@ class BrandController extends ContentController
             })->clearable()->filterable()->multiple()
         )->inputWidth(24)->required(true, 'array');
 
+        $form->saving(function (Form $form) use ($isEdit) {
+            $index_name = $form->input('index_name');
+            $res = preg_match("/^[A-Za-z]+$/", $index_name);
+            if (!$res) {
+                return \Admin::responseError('索引首字母必须是英文字符');
+            }
+        });
+
         return $form;
     }
 }
