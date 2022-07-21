@@ -16,7 +16,7 @@ class GoodsAttr extends Model
 
     public function values(): HasMany
     {
-        return $this->hasMany(GoodsAttrValue::class);
+        return $this->hasMany(GoodsAttrValue::class)->orderby('id');
     }
 
     protected $allAttrs;
