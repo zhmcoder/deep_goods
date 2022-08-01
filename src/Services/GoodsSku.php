@@ -16,7 +16,9 @@ class GoodsSku extends Component
 
     //添加规格接口
     protected $addGoodsAttrUrl;
+    protected $goodsAttrUrl;
     protected $addGoodsAttrValueUrl;
+    protected $goodsAttrValueUrl;
 
     protected $uploadComponent;
     protected $imageComponent;
@@ -30,7 +32,9 @@ class GoodsSku extends Component
         $this->goodsAttrs = $goodsAttrModel->allAttrs();
 
         $this->addGoodsAttrUrl = route("addGoodsAttr");
+        $this->goodsAttrUrl = route("goodsAttr");
         $this->addGoodsAttrValueUrl = route("addGoodsAttrValue");
+        $this->goodsAttrValueUrl = route("goodsAttrValue");
 
         $this->uploadComponent = Upload::make()->width(130)->height(130)->uniqueName();
         $this->imageComponent = Image::make()->size(30, 30)->className("mr-10");
