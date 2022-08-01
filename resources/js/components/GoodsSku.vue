@@ -228,6 +228,7 @@ export default {
             this.GoodsAttrs = this.value.goods_attrs;
         }
 
+        this.getAttrList();
         this.$bus.on("EditDataLoadingCompleted", () => {
             this.initGoodsAttr(this.value.goods_attrs);
         });
@@ -261,6 +262,17 @@ export default {
         }
     },
     methods: {
+      // 获取列表数据
+      getAttrList() {
+        this.$http
+          .post(this.attrs.goodsAttrUrl, {
+          })
+          .then(res => {
+              if (res.code == 200) {
+                this.attrs.goodsAttrs = res.data;
+              }
+          });
+      },
         onChange(goods_attrs, goods_sku_list) {
             this.$emit("change", {
                 goods_attrs: goods_attrs,
