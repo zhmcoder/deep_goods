@@ -372,4 +372,18 @@ class GoodsController extends ContentController
         $data['action']['emit'] = 'tableReload';
         return \Admin::response($data, '操作成功');
     }
+
+    public function goodsAttr(Request $request)
+    {
+        $goodsAttr = new GoodsAttr();
+        return \Admin::response($goodsAttr->allAttrs());
+    }
+
+    public function goodsAttrValue(Request $request)
+    {
+        $goods_attr_id = $request->input("goods_attr_id");
+
+        $goodsAttrValue = new GoodsAttrValue();
+        return \Admin::response($goodsAttrValue->allValues($goods_attr_id));
+    }
 }
