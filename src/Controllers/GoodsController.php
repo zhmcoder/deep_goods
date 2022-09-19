@@ -339,15 +339,26 @@ class GoodsController extends ContentController
     public function addGoodsAttrValue(Request $request)
     {
         try {
-            \Admin::validatorData($request->all(), [
-                'name' => 'required|unique:goods_attr_values,name',
-                'goods_attr_id' => 'required|numeric|min:1'
-            ], [
-                'name.required' => '请输入名称',
-                'name.unique' => '名称已存在',
-            ]);
+            /*
+             \Admin::validatorData($request->all(), [
+                 'name' => 'required|unique:goods_attr_values,name,goods_attr_id,' . $goods_attr_id,
+                 'goods_attr_id' => 'required|numeric|min:1'
+             ], [
+                 'name.required' => '请输入名称',
+                 'name.unique' => '名称已存在',
+             ]);
+             */
+
             $name = $request->input("name");
             $goods_attr_id = $request->input("goods_attr_id");
+
+            if (empty($name)) {
+                return \Admin::responseError('请输入名称');
+            }
+            $count = GoodsAttrValue::query()->where(['goods_attr_id' => $goods_attr_id, 'name' => $name])->count();
+            if ($count) {
+                return \Admin::responseError('名称已存在');
+            }
 
             $ga = GoodsAttrValue::query()->create([
                 'goods_attr_id' => $goods_attr_id,

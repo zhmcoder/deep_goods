@@ -26,6 +26,6 @@ class GoodsAttr extends Model
         if (!empty($this->allAttrs)) {
             return $this->allAttrs;
         }
-        return $this->allAttrs = self::query()->with(['values'])->orderBy("sort")->get()->makeHidden(["created_at", "updated_at"]);
+        return $this->allAttrs = self::query()->with(['values'])->orderByDesc("sort")->orderByDesc('id')->get()->makeHidden(["created_at", "updated_at"]);
     }
 }

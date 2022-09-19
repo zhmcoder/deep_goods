@@ -17,6 +17,6 @@ class GoodsAttrValue extends Model
 
     public function allValues($goods_attr_id)
     {
-        return self::query()->where('goods_attr_id', $goods_attr_id)->orderBy("sort")->get();
+        return self::query()->where('goods_attr_id', $goods_attr_id)->orderByDesc("sort")->orderByDesc('id')->get();
     }
 }
