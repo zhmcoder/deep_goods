@@ -100,7 +100,8 @@ class GoodsSku extends Model
                 'attr_id' => $item['goods_attr_id'] ?? $item['_attr_id'] ?? 0,
             ]);
         });
-        $sku_name = collect($attrs)->sortBy("id")->pluck("name")->join(" ");
+        $sku_name = collect($attrs)->pluck("name")->join(" ");
+        // $sku_name = collect($attrs)->sortBy("id")->pluck("name")->join(" ");
         $goods_sku->name = $goods->name . " " . $sku_name;
         $goods_sku->save();
     }
